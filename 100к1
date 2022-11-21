@@ -15,38 +15,31 @@ answer_and_score_2={"пицца" : "5 баллов",
                     "ризотто" : "20 баллов",
                     "равиоли" : "25 баллов",
                     "паста" : "30 баллов"}
+question_answer_score = ""
+question_answer_score.join({'question_1' : answer_and_score, 'question_2' : answer_and_score_2})
+
+def check_answer(user_word):
+    while count_try < 3:
+        if user_word not in question_answer_score:
+            print("Неверно!")
+            count_try += 1
+            if count_try < 3:
+                user_word = input("Введите другое слово: ")
+            elif count_try > 3:
+                print("Количество попыток закончилось.")
+        elif user_word in question_answer_score:
+            print(f"Поздравляю! За угаданное слово Вы получаете {answer_and_score[user_word]}.")
+            break
+
 list=[question_1, question_2]
 print("Хотите сыграть в игру 'Сто к одному'?")
 answer=input()
-if answer == "нет":
+if answer == "нет" or answer == "Нет":
     print("Сыграем в другой раз")
-elif answer == "да":
+elif answer == "да" or answer == "Да":
     print("Отлично!")
     question=random.choice(list)
     print("Я выбрал следующий вопрос:", question)
     print("У Вас есть три попытки, чтобы угадать популярный ответ.")
     user_word=input("Введите ответ на вопрос: ")
-    if question == question_1:
-        while count_try<3:
-            if user_word not in answer_and_score:
-                print("Неверно!")
-                count_try += 1
-                if count_try<3:
-                    user_word = input("Введите другое слово: ")
-                elif count_try>3:
-                    print("Количество попыток закончилось.")
-            elif user_word in answer_and_score:
-                print(f"Поздравляю! За угаданное слово Вы получаете {answer_and_score[user_word]}.")
-                break
-    if question == question_2:
-        while count_try < 3:
-            if user_word not in answer_and_score_2:
-                print("Неверно!")
-                count_try += 1
-                if count_try < 3:
-                    user_word = input("Введите другое слово: ")
-                elif count_try>3:
-                    print("Количество попыток закончилось.")
-            elif user_word in answer_and_score_2:
-                print(f"Поздравляю! За угаданное слово Вы получаете {answer_and_score_2[user_word]}.")
-                break
+    check_answer(user_word)
