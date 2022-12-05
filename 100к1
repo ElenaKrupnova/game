@@ -1,42 +1,48 @@
 import random
-max = 3
-question_1="Что может быть за дверью?"
-answer_and_score={"комната" : "5 баллов",
+question_1 = "Что может быть за дверью?"
+answer_and_score = {"комната" : "5 баллов",
                     "гость" : "10 баллов",
                     "улица" : "15 баллов",
                     "муж" : "20 баллов",
                     "темнота" : "25 баллов",
                     "лестница" : "30 баллов"}
-question_2="Какие блюда итальянской кухни Вы знаете?"
-answer_and_score_2={"пицца" : "5 баллов",
+question_2 = "Какие блюда итальянской кухни Вы знаете?"
+answer_and_score_2 = {"пицца" : "5 баллов",
                     "спагетти" : "10 баллов",
                     "лазанья" : "15 баллов",
                     "ризотто" : "20 баллов",
                     "равиоли" : "25 баллов",
                     "паста" : "30 баллов"}
-question_answer_score = ""
-question_answer_score.join({'question_1' : answer_and_score, 'question_2' : answer_and_score_2})
+question_3 = "Какая самая популярная зарубежная страна для отдыха у россиян?"
+answer_and_score_3 = {"Египет" : "5 баллов",
+                    "Греция" : "10 баллов",
+                    "Испания" : "15 баллов",
+                    "Италия" : "20 баллов",
+                    "Франция" : "25 баллов",
+                    "Турция" : "30 баллов"}
+answer_and_score.update(answer_and_score_2)
+answer_and_score.update(answer_and_score_3)
 
 def check_answer(user_word):
     count_try = 0
     while count_try < 3:
-        if user_word not in question_answer_score:
+        if user_word not in answer_and_score:
             print("Неверно!")
             count_try += 1
             if count_try < 3:
                 user_word = input("Введите другое слово: ")
             else:
                 print("Количество попыток закончилось.")
-        elif user_word in question_answer_score:
+        elif user_word in answer_and_score:
             print(f"Поздравляю! За угаданное слово Вы получаете {answer_and_score[user_word]}.")
-            return check_answer(user_word)
+            break
 
-list = [question_1, question_2]
+list = [question_1, question_2, question_3]
 print("Хотите сыграть в игру 'Сто к одному'?")
-answer = input()
-if answer == "нет" or answer == "Нет":
+answer = input("Напишите слово 'да' или 'нет': ")
+if answer == "нет":
     print("Сыграем в другой раз")
-elif answer == "да" or answer == "Да":
+elif answer == "да":
     print("Отлично!")
     question = random.choice(list)
     print("Я выбрал следующий вопрос:", question)
